@@ -1,0 +1,288 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block style_modal %}
+    <style>
+        * {
+            transition: all .2s;
+        }
+
+        @media screen and (max-width: 320px) {
+            div#social-block {
+                margin-left: auto;
+                margin-right: auto;
+                width: 100%;
+                display: flex;
+            }
+
+            #social-block div {
+                float: left;
+            }
+
+            #social-block div a img {
+                width: 4rem;
+            }
+
+            #telephone-block {
+                width: 100%;
+                font-size: 1.5rem;
+                text-align: center;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            div#social-block {
+                margin-left: auto;
+                margin-right: auto;
+                width: 100%;
+                display: flex;
+            }
+
+            #social-block div {
+                float: left;
+
+            }
+
+            #social-block div a img {
+                width: 4rem;
+            }
+
+            #telephone-block {
+                width: 100%;
+                font-size: 1.5rem;
+                text-align: center;
+            }
+        }
+
+        @media (min-width: 480px) and (max-width: 760px) {
+            div#social-block {
+                margin-left: auto;
+                margin-right: auto;
+                width: 100%;
+                display: flex;
+            }
+
+            #social-block div {
+                float: left;
+
+            }
+
+            #social-block div a img {
+                width: 4rem;
+            }
+
+            #telephone-block {
+                width: 100%;
+                font-size: 1.5rem;
+                text-align: center;
+            }
+        }
+
+        div#social-block {
+            margin-left: auto;
+            margin-right: auto;
+            width: 100%;
+            display: flex;
+        }
+
+        #social-block div {
+            float: left;
+
+        }
+
+        #social-block div a img {
+            width: 4rem;
+        }
+
+        #telephone-block {
+            width: 100%;
+            font-size: 1.5rem;
+            text-align: center;
+        }
+
+        div.blocktext {
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+        }
+
+        div.blocktext a.bg {
+            width: 13rem;
+            display: inline-flex;
+            height: 3rem;
+            justify-content: center;
+        {#background: green;#} border-radius: 50px;
+            padding: 0.8rem;
+            border: solid white;
+        }
+
+        div.blocktext a {
+            background: linear-gradient(to top, #0f9900, #00b016, #00ff75);
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-xl-9 mx-auto">
+            <h6 class="mb-0 text-uppercase">Телефоны</h6>
+            <hr/>
+            <div class="card">
+                <div class="card-body">
+                    <table class="table mb-0 table-dark table-striped">
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Ник</th>
+                            <th scope="col">Телефон</th>
+                        </tr>
+                        </thead>
+                        <tbody id="main-block-info">
+                            {% for post in posts %}
+                            <tr id="line-{{ forloop.counter }}" data-postid="{{ post.id }}" class="line"
+                                data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                <th scope="row">{{ forloop.counter }}</th>
+                                <td>{{ post.game_nick }}</td>
+                                <td>{{ post.tel }}</td>
+                            </tr>
+                        {% endfor %}
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="nick" style="width: 100%; text-align: center;">Заголовок модального
+                        окна</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="telephone-block">
+                        <span id="tel"></span>
+                    </div>
+
+                    <div id="social-block">
+
+
+{#                        <div class="social" id="telegram" style="margin-left: auto;margin-right: auto;"><a#}
+{#                                href="https://t.me/Bravor1993"><img#}
+{#                                src="{% static 'assets/images/telegram.png' %}" alt=""></a>#}
+{#                        </div>#}
+{#                        <div class="social" id="viber" style="margin-left: auto;margin-right: auto;"><a#}
+{#                                href="viber://chat?number=79881642154"><img#}
+{#                                src="{% static 'assets/images/viber.png' %}" alt=""></a>#}
+{#                        </div>#}
+                    </div>
+                    <hr>
+                    <div class="blocktext"><a href="tel:" class="bg"><span>Позвонить</span></a>
+                        <hr>
+{#                        <div style="height: 100px; width: 100%; background: grey; margin-bottom: auto; margin-top: auto;">#}
+{#                            <span style="">Блок для дополнительной информации кто будет страховать</span>#}
+{#                        </div>#}
+
+                    </div>
+{#                    <div class="modal-footer">#}
+{#                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>#}
+{#                        <button type="button" class="btn btn-primary">Сохранить изменения</button>#}
+{#                    </div>#}
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
+
+{% block js_ajax_load_info %}
+    <script>
+        $('#exampleModal').on('hidden.bs.modal', function (e) {
+            {#let dataId = $(this).attr('data-post-id')#}
+            {#console.log()#}
+            $('.social').remove()
+
+        });
+
+        $('.line').on('click', ajaxLoad)
+        let nick = document.querySelector('#nick')
+        let tel = document.querySelector('#tel')
+
+
+
+        function ajaxLoad() {
+            {#console.log($(this).attr('id'))#}
+            let postId = $('#' + $(this).attr('id')).attr('data-postid')
+            let data = {
+                postId: postId
+            }
+
+            $.ajax({
+                method: "GET",
+                dataType: "json",
+                data: data,
+                url: '{% url 'load_dynamic' %}',
+                success: function (data) {
+
+                    console.log('id')
+                    let result = data['data']
+
+                    if (result) {
+                        $.each(result, (key, obj) => {
+                            $('div.modal-content').attr('data-post-id', obj['id'])
+                            $('div.blocktext > a.bg').attr('href', 'tel:' + obj['tel'])
+                            if (obj['is_whatsapp']) {
+                                $('div#social-block')
+                                    .append('<div class="social" id="whatsapp" style="margin-left: auto;margin-right: auto;">' +
+                                        '<a><img src="{% static 'assets/images/whatsapp.png' %}" alt=""></a>' +
+                                        '</div>')
+                                $('div#whatsapp > a').prop('href', 'https://wa.me/' + obj['tel'])
+                            }
+                            if (obj['is_telegram']) {
+                                $('div#social-block')
+                                    .append('<div class="social" id="telegram" style="margin-left: auto;margin-right: auto;">' +
+                                        '<a href="https://t.me/' + obj['telegram_name'] + '"><img src="{% static 'assets/images/telegram.png' %}" alt=""></a>' +
+                                        '</div>')
+                            }
+                            if (obj['is_viber']){
+                                $('div#social-block')
+                                    .append('<div class="social" id="viber" style="margin-left: auto;margin-right: auto;">' +
+                                                '<a><img src="{% static 'assets/images/viber.png' %}" alt=""></a>' +
+                                            '</div>')
+                                console.log()
+                                $('div#viber > a').prop('href', 'viber://add?number=' + obj['tel'].replace('+', ''))
+                            }
+                            if (!obj['is_viber'] && !obj['is_telegram'] && !obj['is_whatsapp']){
+                                $('div#social-block')
+                                    .append('<div class="social" id="viber" style="margin-left: auto;margin-right: auto;">' +
+                                                '<span>Записей нет</span>' +
+                                            '</div>')
+                            }
+
+
+                            {#console.log(this)#}
+                            {#obj['is_whatsapp'] === false ? $('div#whatsapp').css('display', 'none'): #}
+                            {#obj['is_telegram'] === false ? $('div#telegram').css('display', 'none') : $('div#telegram > a').prop('href', 'https://wa.me/' + obj['tel'])#}
+                            {#obj['is_viber'] === false ? $('div#viber').css('display', 'none') : $('div#viber > a').removeAttr("style").prop('href', 'viber://chat?number=' + obj['tel'])#}
+                            {##}
+                            {#$('div.blocktext > a.bg').prop('href', 'tel:' + obj['tel'])#}
+
+                            nick.textContent = obj['game_nick']
+                            tel.textContent = obj['tel']
+                        })
+                    }
+                }
+            })
+        }
+
+
+    </script>
+
+{% endblock %}
+
+
+

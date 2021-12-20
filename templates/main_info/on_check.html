@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block style_modal %}
+    <style>
+
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div style="text-align: center"><span>У Вас пока нет доступа к данному контенту. Нужно немного времени для проверки всей информации.</span>
+    </div>
+
+
+{% endblock %}
+
+{% block js_ajax_load_info %}
+    <script>
+        function footerToBottom() {
+            var browserHeight = $(window).height(),
+                footerOuterHeight = $('footer.page-footer').outerHeight(true),
+                mainHeightMarginPaddingBorder = $('.page-wrapper').outerHeight(true) - $('.page-wrapper').height() + 1;
+            console.log(browserHeight - footerOuterHeight - mainHeightMarginPaddingBorder)
+            $('.page-wrapper').css({
+                'min-height': browserHeight - footerOuterHeight - mainHeightMarginPaddingBorder,
+            });
+
+        };
+        footerToBottom();
+        $(window).resize(function () {
+            footerToBottom();
+        });
+    </script>
+{% endblock %}

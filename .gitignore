@@ -1,0 +1,12 @@
+.idea
+venv
+/*/migrations
+db.sqlite3
+*/__pycache__
+docker-compose.yml
+Dockerfile
+entrypoint.sh
+site_for_guild/dev
+site_for_guild/.env
+__pycache__/
+.DS_Store

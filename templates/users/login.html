@@ -1,0 +1,86 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+    {% include 'head.html' %}
+</head>
+
+<body class="bg-theme bg-theme2">
+<!--wrapper-->
+<div class="wrapper">
+    <div class="section-authentication-signin d-flex align-items-center justify-content-center my-5 my-lg-0">
+        <div class="container-fluid">
+            <div class="row row-cols-1 row-cols-lg-2 row-cols-xl-3">
+                <div class="col mx-auto">
+
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="border p-4 rounded">
+                                <div class="text-center">
+                                    <h3 class="">Вход</h3>
+                                    <p>Ещё нет учетной записи? <a href="{% url 'registration' %}">Регистрация здесь</a>
+                                    </p>
+                                </div>
+                                <div class="form-body">
+                                    <form method='POST' class="row g-3"> {% csrf_token %}
+                                        <div class="col-12">
+                                            <label for="inputEmailAddress" class="form-label">{{ form.username.label }}</label>
+                                            {{ form.username }}
+                                        </div>
+                                        <div class="col-12">
+                                            <label for="inputChoosePassword" class="form-label">{{ form.password.label }}</label>
+                                            <div class="input-group" id="show_hide_password">
+                                                {{ form.password }}
+                                                <a href="javascript:;" class="input-group-text bg-transparent">
+                                                    <i class='bx bx-hide'></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        {{ form.non_field_errors }}
+                                        <div class="col-md-6">
+                                            <div class="form-check form-switch">
+
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12">
+                                            <div class="d-grid">
+                                                <button type="submit" class="btn btn-light"><i
+                                                        class="bx bxs-lock-open"></i>Войти
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--end row-->
+        </div>
+    </div>
+</div>
+{% include 'js.html' %}
+<script>
+    $(document).ready(function () {
+        $("#show_hide_password a").on('click', function (event) {
+            event.preventDefault();
+            if ($('#show_hide_password input').attr("type") == "text") {
+                $('#show_hide_password input').attr('type', 'password');
+                $('#show_hide_password i').addClass("bx-hide");
+                $('#show_hide_password i').removeClass("bx-show");
+            } else if ($('#show_hide_password input').attr("type") == "password") {
+                $('#show_hide_password input').attr('type', 'text');
+                $('#show_hide_password i').removeClass("bx-hide");
+                $('#show_hide_password i').addClass("bx-show");
+            }
+        });
+    });
+</script>
+<!--app JS-->
+<script src="{% static "assets/js/app.js" %}"></script>
+</body>
+
+</html>

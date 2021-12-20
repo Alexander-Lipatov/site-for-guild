@@ -1,0 +1,176 @@
+<script>
+    $(document).ready(function () {
+        $("#show_hide_password a").on('click', function (event) {
+            event.preventDefault();
+            if ($('#show_hide_password input').attr("type") == "text") {
+                $('#show_hide_password input').attr('type', 'password');
+                $('#show_hide_password i').addClass("bx-hide");
+                $('#show_hide_password i').removeClass("bx-show");
+            } else if ($('#show_hide_password input').attr("type") == "password") {
+                $('#show_hide_password input').attr('type', 'text');
+                $('#show_hide_password i').removeClass("bx-hide");
+                $('#show_hide_password i').addClass("bx-show");
+            }
+        });
+    });
+    $(document).ready(function () {
+        $("#show_hide_password_confirm a").on('click', function (event) {
+            event.preventDefault();
+            if ($('#show_hide_password_confirm input').attr("type") == "text") {
+                $('#show_hide_password_confirm input').attr('type', 'password');
+                $('#show_hide_password_confirm i').addClass("bx-hide");
+                $('#show_hide_password_confirm i').removeClass("bx-show");
+            } else if ($('#show_hide_password_confirm input').attr("type") == "password") {
+                $('#show_hide_password_confirm input').attr('type', 'text');
+                $('#show_hide_password_confirm i').removeClass("bx-hide");
+                $('#show_hide_password_confirm i').addClass("bx-show");
+            }
+        });
+    });
+
+
+    $(function () {
+        function maskPhone() {
+            var country = $('#country option:selected').val();
+            switch (country) {
+                {% for country in country_data %}
+                    case "{{ country.id }}":
+                        $.mask.definitions['9'] = false;
+                        $.mask.definitions['n'] = "[0-9]";
+                        $("#phone").mask("+{{ country.tel_code }} nnnnnnnnnn",
+                            {placeholder: "", autoclear: false})
+                        if ($("#phone").val() !== '') {
+                            $("#phone").val('')
+                        }
+                        break;
+                {% endfor %}
+            }
+        }
+
+        maskPhone();
+        $('#country').change(function () {
+            maskPhone();
+        });
+    });
+    $("#country").val('143')
+
+
+    $(document).ready(function () {
+        $(".close").click(function () {
+            $("input#telegram").prop("checked", false);
+            $('button.apply').prop('disabled', true)
+        });
+
+        $(".apply").click(function () {
+            $("input#telegram").prop("checked", true);
+            $('#telegram').removeAttr('data-bs-target')
+            $('button.apply').prop('disabled', true)
+
+        });
+        $("#telegram").click(function () {
+            if ($('#telegram').is(':checked')) {
+                $('input#id_telegram_name').val('')
+            } else {
+
+                $('#telegram').attr('data-bs-target', '#exampleModal')
+                $('input#id_telegram_name').val('')
+            }
+        });
+        $('#exampleModal').click(function (e) { // событие клика по веб-документу
+            var div = $(".modal-content"); // тут указываем ID элемента
+            if (!div.is(e.target) // если клик был не по нашему блоку
+                && div.has(e.target).length === 0) { // и не по его дочерним элементам
+                $("input#telegram").prop("checked", false); // скрываем его
+                $('button.apply').prop('disabled', true)
+            }
+        });
+        $('#id_telegram_name').bind('input', function () {
+            if ($(this).val()){
+                $('button.apply').prop('disabled', false)
+            }else {
+                $('button.apply').prop('disabled', true)
+            }
+            console.log($(this).val())
+        });
+    });
+
+</script>
+
+{#<script>#}
+{#    var currentTab = 0; // Current tab is set to be the first tab (0)#}
+{#    showTab(currentTab); // Display the current tab#}
+{##}
+{#    function showTab(n) {#}
+{#        // This function will display the specified tab of the form ...#}
+{#        var x = document.getElementsByClassName("tab");#}
+{#        x[n].style.display = "flex";#}
+{#        // ... and fix the Previous/Next spans:#}
+{#        if (n == 0) {#}
+{#            document.getElementById("prevBtn").style.display = "none";#}
+{#        } else {#}
+{#            document.getElementById("prevBtn").style.display = "inline";#}
+{#        }#}
+{#        if (n === (x.length - 1)) {#}
+{#            document.getElementById("nextBtn").innerHTML = "Регистрация";#}
+{#            document.getElementById("nextBtn").className = 'col-6 btn btn-dark'#}
+{#        } else {#}
+{#            document.getElementById("nextBtn").innerHTML = "Далее";#}
+{##}
+{#        }#}
+{#        // ... and run a function that displays the correct step indicator:#}
+{##}
+{#    }#}
+{##}
+{#    function nextPrev(n) {#}
+{#        // This function will figure out which tab to display#}
+{#        var x = document.getElementsByClassName("tab");#}
+{#        // Exit the function if any field in the current tab is invalid:#}
+{#        if (n === 1 && !validateForm()) return false;#}
+{#        // Hide the current tab:#}
+{#        if (currentTab === x.length - 1) {#}
+{#            x[currentTab].style.display = "flex"#}
+{#            document.getElementById("regForm").submit();#}
+{#            return false;#}
+{#        }#}
+{#        x[currentTab].style.display = "none";#}
+{##}
+{#        // Increase or decrease the current tab by 1:#}
+{#        currentTab = currentTab + n;#}
+{#        // if you have reached the end of the form... :#}
+{##}
+{#        // Otherwise, display the correct tab:#}
+{#        showTab(currentTab);#}
+{#    }#}
+{##}
+{#    function validateForm() {#}
+{#        // This function deals with validation of the form fields#}
+{#        var x, y, i, valid = true;#}
+{#        x = document.getElementsByClassName("tab");#}
+{#        y = x[currentTab].getElementsByTagName("input");#}
+{#        // A loop that checks every input field in the current tab:#}
+{#        for (i = 0; i < y.length; i++) {#}
+{#            // If a field is empty...#}
+{#            if (y[i].value == "") {#}
+{#                // add an "invalid" class to the field:#}
+{#                y[i].className += " invalid";#}
+{#                // and set the current valid status to false:#}
+{#                valid = false;#}
+{#            }#}
+{#        }#}
+{#        // If the valid status is true, mark the step as finished and valid:#}
+{##}
+{#        return valid; // return the valid status#}
+{#    }#}
+{##}
+{##}
+{#</script>#}
+{#<script>#}
+{#    $('#avatars span.avatar img').on('click', (i) => {#}
+{#        let teImg = i.target.attributes[0].value#}
+{#        $('#avatarimg').attr('src', teImg)#}
+{#        $('#ava-load').attr('value', teImg)#}
+{##}
+{##}
+{#    })#}
+{##}
+{#</script>#}

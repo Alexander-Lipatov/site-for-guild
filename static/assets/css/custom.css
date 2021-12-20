@@ -1,0 +1,5 @@
+div.btn-notifications{text-align: right;}
+div.btn-notifications ul{list-style: none; padding: 0}
+div.btn-notifications ul li{display: inline;}
+
+div.items-center-none {padding: 5px; text-align: center;}

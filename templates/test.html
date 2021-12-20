@@ -1,0 +1,15 @@
+<p id="response_msg"></p>
+<form id="username_exists_form" method='GET'>
+      Name: <input type="username" name="username" />
+      <button type='submit'> Check </button>
+</form>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    $('#username_exists_form').on('submit',function(e){
+    e.preventDefault();
+    var username = $(this).find('input').val();
+    $.get('/exists/',
+          {'username': username},
+          function(response){ $('#response_msg').text(response.msg); }
+    );
+}); </script>

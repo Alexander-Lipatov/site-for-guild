@@ -1,0 +1,142 @@
+{% load static %}
+<!doctype html>
+<html lang="ru">
+
+<head>
+	{% include 'head.html' %}
+    {% block style_modal %}{% endblock %}
+</head>
+
+<body class="bg-theme bg-theme2">
+	<!--wrapper-->
+	<div class="wrapper">
+		<!--sidebar wrapper -->
+		<div class="sidebar-wrapper" data-simplebar="true">
+			<div class="sidebar-header">
+				<div>
+					<img src="{% static "assets/images/logo-icon.png" %}" class="logo-icon" alt="logo icon">
+				</div>
+				<div>
+					<h4 class="logo-text">Guild RGa</h4>
+				</div>
+				<div class="toggle-icon ms-auto"><i class='bx bx-arrow-to-left'></i>
+				</div>
+			</div>
+			<!--navigation-->
+			<ul class="metismenu" id="menu">
+				<li>
+					<a href="">
+
+						<div class="parent-icon"><i class="fadeIn animated bx bx-mobile-alt"></i>
+						</div>
+						<div class="menu-title">Телефоны</div>
+					</a>
+				</li>
+				<!-- <li class="menu-label">UI Elements</li>
+				<li>
+					<a href="javascript:;" class="has-arrow">
+						<div class="parent-icon"><i class="bx bx-category"></i>
+						</div>
+						<div class="menu-title">Application</div>
+					</a>
+					<ul>
+						<li> <a href="app-emailbox.html"><i class="bx bx-right-arrow-alt"></i>Email</a>
+						</li>
+						<li> <a href="app-chat-box.html"><i class="bx bx-right-arrow-alt"></i>Chat Box</a>
+						</li>
+						<li> <a href="app-file-manager.html"><i class="bx bx-right-arrow-alt"></i>File Manager</a>
+						</li>
+						<li> <a href="app-contact-list.html"><i class="bx bx-right-arrow-alt"></i>Contatcs</a>
+						</li>
+						<li> <a href="app-to-do.html"><i class="bx bx-right-arrow-alt"></i>Todo List</a>
+						</li>
+						<li> <a href="app-invoice.html"><i class="bx bx-right-arrow-alt"></i>Invoice</a>
+						</li>
+						<li> <a href="app-fullcalender.html"><i class="bx bx-right-arrow-alt"></i>Calendar</a>
+						</li>
+					</ul>
+				</li> -->
+			</ul>
+			<!--end navigation-->
+		</div>
+		<!--end sidebar wrapper -->
+		<!--start header -->
+		<header>
+			<div class="topbar d-flex align-items-center">
+				<nav class="navbar navbar-expand">
+					<div class="mobile-toggle-menu"><i class='bx bx-menu'></i>
+					</div>
+					<div class="top-menu ms-auto">
+						<ul class="navbar-nav align-items-center">
+                            {% if user.is_staff or user.is_admin %}
+                            {% include 'base/notifications.html' %}
+                            {% endif %}
+
+							<li class="nav-item dropdown dropdown-large">
+								<div class="dropdown-menu dropdown-menu-end">
+									<div class="header-message-list"></div>
+								</div>
+							</li>
+						</ul>
+					</div>
+					<div class="user-box dropdown">
+						<a class="d-flex align-items-center nav-link dropdown-toggle dropdown-toggle-nocaret" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+							<img src="media/{{ user.avatar }}" class="user-img" alt="user avatar">
+							<div class="user-info ps-3">
+								<p class="user-name mb-0">{{ user.game_nick }}</p>
+								<p class="designattion mb-0">{{ user.tel }}</p>
+							</div>
+						</a>
+						<ul class="dropdown-menu dropdown-menu-end">
+                            {% if user.is_admin %}
+                            <li>
+                                <a class="dropdown-item" href="/admin"><i class="bx bx-slider-alt"></i><span>Админпанель</span></a>
+							</li>
+                            <li>
+								<div class="dropdown-divider mb-0"></div>
+							</li>
+                            {% endif %}
+							<li><a class="dropdown-item" href="javascript:;"><i class="bx bx-user"></i><span>Профиль</span></a>
+							</li>
+							<li><a class="dropdown-item" href="javascript:;"><i class="bx bx-cog"></i><span>Настройки</span></a>
+							</li>
+							<li>
+								<div class="dropdown-divider mb-0"></div>
+							</li>
+							<li><a class="dropdown-item" href="{% url 'logout' %}"><i class='bx bx-log-out-circle'></i><span>Выход</span></a>
+							</li>
+						</ul>
+					</div>
+				</nav>
+			</div>
+		</header>
+
+		<!--end header -->
+		<!--start page wrapper -->
+		<div class="page-wrapper">
+			<div class="page-content">
+				<!--breadcrumb-->
+				<!--end breadcrumb-->
+                {% block content %}{% endblock %}
+				<!--end row-->
+			</div>
+		</div>
+
+		<!--end page wrapper -->
+		<!--start overlay-->
+		<div class="overlay toggle-icon"></div>
+		<!--end overlay-->
+		<!--Start Back To Top Button--> <a href="javaScript:;" class="back-to-top"><i class='bx bxs-up-arrow-alt'></i></a>
+		<!--End Back To Top Button-->
+		<footer class="page-footer">
+			<p class="mb-0">Вся информация представлена только в информационных целях для удобства игроков!</p>
+		</footer>
+
+	</div>
+	<!--end wrapper-->
+	<!--start switcher-->
+	{% include 'js.html' %}
+    {% block js_ajax_load_info %}{% endblock %}
+</body>
+
+</html>
