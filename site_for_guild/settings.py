@@ -125,8 +125,9 @@ USE_TZ = True
 AUTH_USER_MODEL = 'users.User'
 
 STATIC_URL = '/static/'
+STATIC_ROOT = '/static/'
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
+    os.path.join(BASE_DIR, "static/assets"),
 ]
 
 MEDIA_URL = '/media/'
